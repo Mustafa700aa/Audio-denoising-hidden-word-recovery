@@ -28,7 +28,7 @@ An end-to-end **Digital Signal Processing (DSP)** pipeline designed to recover s
 
 | Metric / Attribute | Value |
 |---|---|
-| **Input Degraded Audio** | `task5_1.wav` (48,000 Hz, 16-bit PCM Mono) |
+| **Input Degraded Audio** | `noisy_speech_sample.wav` (48,000 Hz, 16-bit PCM Mono) |
 | **Duration** | $1.117\text{ s}$ ($53,600\text{ samples}$) |
 | **Cleaned Output Audio** | `cleaned_audio.wav` |
 | **Noise Attenuation** | **$> 40\text{ dB}$** suppression across interference comb |
@@ -39,7 +39,7 @@ An end-to-end **Digital Signal Processing (DSP)** pipeline designed to recover s
 
 ## 🔬 Problem Characterization & Quantitative Analysis
 
-The raw audio recording (`task5_1.wav`) presents extreme acoustic degradation characteristic of high-power switched-mode pulse interference:
+The raw audio recording (`noisy_speech_sample.wav`) presents extreme acoustic degradation characteristic of high-power switched-mode pulse interference:
 
 1. **Extreme Dynamic Clipping / Saturation**:
    - The original time-domain signal swings aggressively between full-scale 16-bit integer rails ($-32,767$ to $+32,767$).
@@ -57,7 +57,7 @@ The signal restoration pipeline consists of five orchestrated stages:
 
 ```mermaid
 flowchart TD
-    A["Raw Audio (task5_1.wav)\n48 kHz, 16-bit, Heavily Clipped"] --> B["FFT Spectral Decomposition\nnp.fft.rfft"]
+    A["Raw Audio (noisy_speech_sample.wav)\n48 kHz, 16-bit, Heavily Clipped"] --> B["FFT Spectral Decomposition\nnp.fft.rfft"]
     B --> C["Dynamic Noise Spike Detection\nMedian Filtering (500 Hz Window) + Ratio Threshold"]
     C --> D["Cascade of 2nd-Order IIR Notch Filters\nscipy.signal.iirnotch (Q ≥ 30)"]
     D --> E["4th-Order Butterworth Bandpass Filter\n80 Hz – 4000 Hz (scipy.signal.butter)"]
@@ -119,7 +119,7 @@ This achieves **exact zero phase distortion**, preserving the natural timbre and
 
 ## 📊 Quantitative Results & Benchmark
 
-| Parameter | Original Signal (`task5_1.wav`) | Cleaned Signal (`cleaned_audio.wav`) | Impact |
+| Parameter | Original Signal (`noisy_speech_sample.wav`) | Cleaned Signal (`cleaned_audio.wav`) | Impact |
 |---|---|---|---|
 | **Peak Amplitude** | $\pm 32,767$ (Hard Saturated) | $\pm 31,128$ (Normalized at 95%) | Clipping eliminated |
 | **Saturated Samples** | $\approx 89.2\%$ of samples | $0.0\%$ | Linear dynamic range restored |
@@ -145,9 +145,9 @@ The script automatically generates a comprehensive 3-panel comparative diagnosti
 
 ```plaintext
 audio-denoising-hidden-word-recovery/
-├── task1_1_solution.py          # Standalone, end-to-end DSP Python pipeline
-├── Task_1_1_Solution.ipynb      # Interactive Jupyter Notebook with inline audio playback
-├── task5_1.wav                  # Degraded input audio (48 kHz, 16-bit Mono)
+├── speech_denoiser.py           # Standalone, end-to-end DSP Python pipeline
+├── speech_denoising_pipeline.ipynb # Interactive Jupyter Notebook with inline audio playback
+├── noisy_speech_sample.wav      # Degraded input audio (48 kHz, 16-bit Mono)
 ├── cleaned_audio.wav            # Fully restored speech output
 ├── audio_filtering_analysis.png # High-resolution 3-panel comparative diagnostic plot
 ├── DOCUMENTATION.md             # In-depth technical documentation
@@ -184,20 +184,20 @@ pip install -r requirements.txt
 
 ### 4. Execute the Pipeline
 ```bash
-python task1_1_solution.py
+python speech_denoiser.py
 ```
 
 ---
 
 ## 🔊 Verification & Playback
 
-When running `task1_1_solution.py`:
-- The script automatically processes `task5_1.wav`.
+When running `speech_denoiser.py`:
+- The script automatically processes `noisy_speech_sample.wav`.
 - The cleaned signal is exported to `cleaned_audio.wav`.
 - Diagnostic plots are saved to `audio_filtering_analysis.png`.
 - The cleaned audio automatically plays through your system's default audio output via the Windows Sound API (`winsound`) or `sounddevice`.
 
-Alternatively, open `Task_1_1_Solution.ipynb` in VS Code or JupyterLab to listen interactively to the before and after audio samples.
+Alternatively, open `speech_denoising_pipeline.ipynb` in VS Code or JupyterLab to listen interactively to the before and after audio samples.
 
 ---
 

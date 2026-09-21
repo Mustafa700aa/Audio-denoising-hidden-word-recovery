@@ -1,14 +1,14 @@
-# Task 1.1: Uncover the Secret Hidden Word — Technical Documentation
+# Speech Denoising & Secret Hidden Word Recovery — Technical Documentation
 
 ---
 
 ## 1. Executive Summary & Recovered Word
 
-* **Input File**: [`task5_1.wav`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/task5_1.wav) (48 kHz, 16-bit Mono, ~1.117 seconds duration)
-* **Recovered Audio**: [`cleaned_audio.wav`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/cleaned_audio.wav)
+* **Input File**: [`noisy_speech_sample.wav`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task5_1.1/noisy_speech_sample.wav) (48 kHz, 16-bit Mono, ~1.117 seconds duration)
+* **Recovered Audio**: [`cleaned_audio.wav`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task5_1.1/cleaned_audio.wav)
 * **Solution Scripts**:
-  * Python script: [`task1_1_solution.py`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/task1_1_solution.py)
-  * Jupyter Notebook: [`Task_1_1_Solution.ipynb`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task_1_1_Solution.ipynb)
+  * Python script: [`speech_denoiser.py`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task5_1.1/speech_denoiser.py)
+  * Jupyter Notebook: [`speech_denoising_pipeline.ipynb`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task5_1.1/speech_denoising_pipeline.ipynb)
 * **Diagnostic Visualization**: [`audio_filtering_analysis.png`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/audio_filtering_analysis.png)
 * **Recovered Secret Word / Phrase**: **"Thank you"**
 
@@ -27,7 +27,7 @@ The original audio file contains speech masked by a severe, high-amplitude buzz 
 Our DSP filtering pipeline follows four primary stages:
 
 ```
-[task5_1.wav]
+[noisy_speech_sample.wav]
      │
      ▼
 [FFT Spectral Analysis] ──► Detect buzz spike frequencies using local baseline ratio
@@ -91,9 +91,9 @@ The script generates [`audio_filtering_analysis.png`](file:///c:/Users/ZBook%20G
 
 ### Option A: Python Script
 ```bash
-python task1_1_solution.py
+python speech_denoiser.py
 ```
 *Output*: De-noises audio, saves `cleaned_audio.wav`, produces `audio_filtering_analysis.png`, and automatically plays the audio through your speakers.
 
 ### Option B: Jupyter Notebook
-Open and run all cells in [`Task_1_1_Solution.ipynb`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task_1_1_Solution.ipynb) to view interactive inline audio players and plots.
+Open and run all cells in [`speech_denoising_pipeline.ipynb`](file:///c:/Users/ZBook%20G3/OneDrive/Desktop/MIA_Phase5/Task5_1.1/speech_denoising_pipeline.ipynb) to view interactive inline audio players and plots.

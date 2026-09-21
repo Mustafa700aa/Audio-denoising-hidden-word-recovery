@@ -1,14 +1,13 @@
 """
 =============================================================================
-TASK 1.1: UNCOVER THE SECRET HIDDEN WORD (AUDIO DE-NOISING SOLUTION)
+SPEECH DENOISING & HIDDEN AUDIO RECOVERY PIPELINE
 =============================================================================
-Course / Project: Signal Processing & AI Team Phase II
-Author: AI Assistant Pair Programmer
-Task: Recover a speech signal contaminated with loud buzz interference.
+Application: Digital Signal Processing (DSP) Audio Enhancement
+Task: Recover speech signal contaminated with severe pulse/comb interference.
 
 METHODOLOGY OVERVIEW:
 1. Audio Ingestion & Metadata Inspection:
-   - Reads the degraded WAV file (`task5_1.wav`).
+   - Reads the degraded WAV file (`noisy_speech_sample.wav`).
    - Analyzes sampling rate (48 kHz), bit depth (16-bit PCM), and duration (~1.12 s).
 
 2. Frequency Domain Spectral Analysis (FFT):
@@ -212,7 +211,7 @@ def plot_diagnostics(orig_data: np.ndarray, clean_data: np.ndarray, sr: int, sav
     axes[2, 1].set_ylim(0, 6000)
     fig.colorbar(im1, ax=axes[2, 1], label='Power (dB)')
     
-    plt.suptitle("DSP Audio De-Noising Analysis (Task 1.1)", fontsize=14, fontweight='bold', y=0.99)
+    plt.suptitle("DSP Audio De-Noising & Speech Recovery Analysis", fontsize=14, fontweight='bold', y=0.99)
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     plt.close()
     print(f"[+] Diagnostic plots saved to: {save_path}")
@@ -253,12 +252,15 @@ def play_audio(audio_path: str):
 
 
 def main():
-    input_wav = "task5_1.wav"
-    output_wav = "cleaned_audio.wav"
-    plot_png = "audio_filtering_analysis.png"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    input_wav = os.path.join(script_dir, "noisy_speech_sample.wav")
+    if not os.path.exists(input_wav):
+        input_wav = os.path.join(script_dir, "task5_1.wav")
+    output_wav = os.path.join(script_dir, "cleaned_audio.wav")
+    plot_png = os.path.join(script_dir, "audio_filtering_analysis.png")
     
     print("=" * 70)
-    print("  TASK 1.1: AUDIO DE-NOISING & HIDDEN WORD RECOVERY")
+    print("  AUDIO DE-NOISING & SPEECH RECOVERY PIPELINE")
     print("=" * 70)
     
     # Step 1: Load Audio
